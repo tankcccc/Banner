@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style: none;
+        }
+        .con{
+            position: relative;
+            width: 100%;
+            height: 380px;
+            overflow: hidden;
+        }
+        ul{
+            width: 400%;
+            height: 380px;
+            position: absolute;
+        }
+        ul li{
+            width: 25%;
+            height: 380px;
+            float: left;
+        }
+        li:nth-of-type(1){
+            background: url(images/p1.jpg);
+            background-position: center center;
+        }
+        li:nth-of-type(2){
+            background: url(images/p2.jpg);
+            background-position: center center;
+        }
+        li:nth-of-type(3){
+            background: url(images/p3.jpg);
+            background-position: center center;
+        }
+        li:nth-of-type(4){
+            background: url(images/p4.jpg);
+            background-position: center center;
+        }
+        span{
+            font-size: 80px;
+            color: #fff;
+            position: absolute;
+            cursor: pointer;
+        }
+        span:nth-of-type(1){
+            left:50px;
+            top: 50%;
+            margin-top: -30px;
+        }
+        span:nth-of-type(2){
+            right:50px;
+            top: 50%;
+            transform: translateY(-30px);
+        }
+        .con ol{
+            position: absolute;
+            left:50%;
+            bottom: 30px;
+            margin-left: -80px;
+        }
+        .con ol li{
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #fff;
+            margin:0 10px;
+            float: left;
+        }
+        .con .circle{
+            border: 2px solid orange;
+            margin-top: -2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="con">
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <span>&lt;</span>
+        <span>&gt;</span>
+        <ol>
+            <li class="circle"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ol>
+    </div>
+    <script src="jquery-1.11.3.js"></script>
+    <script>
+        var idx = 0;
+        var timer = null;
+        start();
+        $('span:last').click(function(){
+            idx++;
+            idx = idx>3?0:idx;
+            $('.con ul').animate({'left':'-'+idx*100+'%'},1000);
+            $('ol li').eq(idx).addClass('circle').siblings().removeClass('circle');
+        });
+        $('span:first').click(function(){
+            idx--;
+            idx = idx<0?3:idx;
+            $('.con ul').animate({'left':'-'+idx*100+'%'},1000);
+            $('ol li').eq(idx).addClass('circle').siblings().removeClass('circle');
+        });
+        function start(){
+            timer = setInterval(function(){
+                idx++;
+                idx = idx>3?0:idx;
+                $('.con ul').animate({'left':'-'+idx*100+'%'},1000);
+                $('ol li').eq(idx).addClass('circle').siblings().removeClass('circle');
+            },3000);
+        }
+
+        $('.con').on('mouseover',function(){
+            clearInterval(timer);
+        });
+        $('.con').on('mouseout',function(){
+            start();
+        });
+    </script>
+</body>
+</html>
